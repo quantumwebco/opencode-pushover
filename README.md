@@ -24,74 +24,41 @@ A plugin for [OpenCode](https://opencode.ai) that sends Pushover notifications w
 
 You can configure the plugin in several ways, in order of precedence (later sources override earlier ones):
 
-1. Local `.pushover.env` file in the plugin directory (for local development)
-2. Global `~/.config/opencode/.env` file
-3. Environment variables in `~/.config/opencode/opencode.jsonc` under the `env` key
-4. Plugin configuration in `~/.config/opencode/opencode.jsonc` under `plugins.opencode-pushover`
-5. Local `opencode-pushover.json` file in the plugin directory
+1. Default configuration in `opencode-pushover.json` in the plugin directory
+2. User configuration in `~/.config/opencode/opencode-pushover.json`
+3. Environment variables in `~/.config/opencode/.env`
 
 ### Environment Variables
 
 Set your Pushover credentials in one of the following ways:
 
-**Option 1: Local .env file (for development)**
-Create a `.pushover.env` file in the plugin directory:
-```
-PUSHOVER_USER=your_user_key
-PUSHOVER_TOKEN=your_app_token
-```
-
-**Option 2: Global .env file**
+**Option 1: Global .env file**
 Create or add to `~/.config/opencode/.env`:
 ```
 PUSHOVER_USER=your_user_key
 PUSHOVER_TOKEN=your_app_token
 ```
 
-**Option 3: Global config file**
-Add to `~/.config/opencode/opencode.jsonc`:
-```jsonc
+**Option 2: User config file**
+Add to `~/.config/opencode/opencode-pushover.json`:
+```json
 {
-  "env": {
-    "PUSHOVER_USER": "your_user_key",
-    "PUSHOVER_TOKEN": "your_app_token"
-  }
+  "PUSHOVER_USER": "your_user_key",
+  "PUSHOVER_TOKEN": "your_app_token",
+  "message": "OpenCode has finished!",
+  "title": "OpenCode Session Complete",
+  "priority": 0
 }
 ```
 
 ### Optional Configuration
 
-Configure notifications in one of the following ways:
-
-**Option 1: Local config file (for development)**
-Edit `opencode-pushover.json` in the plugin directory:
-
-**Option 2: Global config file**
-Add to `~/.config/opencode/opencode.jsonc`:
-```jsonc
-{
-  "plugins": {
-    "opencode-pushover": {
-      "message": "OpenCode has finished!",
-      "title": "OpenCode Session Complete",
-      "priority": 0,
-      "sound": "spacealarm",
-      "html": 0,
-      "device": null,
-      "attachment": null,
-      "attachment_base64": null,
-      "attachment_type": null,
-      "timestamp": null,
-      "ttl": null,
-      "url": null,
-      "url_title": null
-    }
-  }
-}
-```
+Configure notifications by editing `~/.config/opencode/opencode-pushover.json`:
 
 ```json
 {
+  "PUSHOVER_USER": "your_user_key",
+  "PUSHOVER_TOKEN": "your_app_token",
   "message": "OpenCode has finished!",
   "title": "OpenCode Session Complete",
   "priority": 0,

@@ -9,5 +9,8 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/quantumwebco/opencode-pushover.git"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3"
   }
 }
