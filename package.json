@@ -1,7 +1,7 @@
 {
   "type": "module",
   "name": "opencode-pushover",
-  "version": "1.0.0",
+  "version": "0.1",
   "description": "Pushover notifications for OpenCode",
   "license": "ISC",
   "author": "quantumwebco",
