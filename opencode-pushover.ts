@@ -29,7 +29,7 @@ function guessMime(filePath: string) {
 
 export default async ({ project, client, $, directory, worktree }) => {
   // Load environment variables from global ~/.config/opencode/.env
-  dotenv.config({ path: path.join(os.homedir(), '.config', 'opencode', '.env'), override: false })
+  dotenv.config({ path: path.join(os.homedir(), '.config', 'opencode', '.env'), override: false, quiet: true })
 
   let cfg: any = {}
   // Load default config from opencode-pushover.json
