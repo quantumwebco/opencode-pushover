@@ -18,7 +18,7 @@ A plugin for [OpenCode](https://opencode.ai) that sends Pushover notifications w
    npm install opencode-pushover
    ```
 
-2. Add the plugin to your OpenCode configuration.
+2. Add the plugin to your [OpenCode configuration](https://opencode.ai/docs/plugins#from-npm). 
 
 ## Configuration
 
