@@ -1,6 +1,7 @@
 import type { Plugin } from "@opencode-ai/plugin"
 import fs from "node:fs"
 import path from "node:path"
+import os from "node:os"
 import { fileURLToPath } from "node:url"
 import process from "node:process"
 import dotenv from "dotenv"
@@ -27,13 +28,40 @@ function guessMime(filePath: string) {
 }
 
 export default async ({ project, client, $, directory, worktree }) => {
+  // Load environment variables from local .pushover.env
   dotenv.config({ path: path.join(__dirname, ".pushover.env") })
+
+  // Load environment variables from global ~/.config/opencode/.env
+  dotenv.config({ path: path.join(os.homedir(), '.config', 'opencode', '.env'), override: false })
+
+  // Load global config from ~/.config/opencode/opencode.jsonc
+  try {
+    const globalCfgPath = path.join(os.homedir(), '.config', 'opencode', 'opencode.jsonc')
+    const globalCfg = JSON.parse(fs.readFileSync(globalCfgPath, 'utf8'))
+    // Set env variables from global config if present
+    if (globalCfg.env) {
+      Object.assign(process.env, globalCfg.env)
+    }
+  } catch (err) {
+    // Ignore if file doesn't exist or is invalid
+  }
 
   let cfg: any = {}
   try {
     cfg = JSON.parse(fs.readFileSync(path.join(__dirname, "opencode-pushover.json"), "utf8"))
   } catch (err) {
     console.error("Failed to load config", err)
+  }
+
+  // Override local config with global plugin config if present
+  try {
+    const globalCfgPath = path.join(os.homedir(), '.config', 'opencode', 'opencode.jsonc')
+    const globalCfg = JSON.parse(fs.readFileSync(globalCfgPath, 'utf8'))
+    if (globalCfg.plugins && globalCfg.plugins['opencode-pushover']) {
+      cfg = { ...cfg, ...globalCfg.plugins['opencode-pushover'] }
+    }
+  } catch (err) {
+    // Ignore if file doesn't exist or is invalid
   }
 
   const PUSHOVER_USER = process.env.PUSHOVER_USER

@@ -5,5 +5,9 @@
   "description": "Pushover notifications for OpenCode",
   "license": "ISC",
   "author": "quantumwebco",
-  "main": "opencode-pushover.ts"
+  "main": "opencode-pushover.ts",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/quantumwebco/opencode-pushover.git"
+  }
 }
